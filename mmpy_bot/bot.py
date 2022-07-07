@@ -96,7 +96,7 @@ class Bot:
             self.event_handler._check_queue_loop(self.webhook_server.event_queue)
         )
 
-    def run(self):
+    def run(self, tikets):
         log.info(f"Starting bot {self.__class__.__name__}.")
         try:
             self.running = True
@@ -111,7 +111,7 @@ class Bot:
                 self.driver.threadpool.start_webhook_server_thread(self.webhook_server)
 
             for plugin in self.plugins:
-                plugin.on_start()
+                plugin.on_start(tikets)
 
             # Start listening for events
             self.event_handler.start()
